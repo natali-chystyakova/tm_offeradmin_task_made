@@ -1,4 +1,3 @@
-from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 from rest_framework import serializers, routers, mixins
 from rest_framework import viewsets
@@ -72,15 +71,6 @@ class OfferWallViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin):
     permission_classes = [AllowAny]
     serializer_class = OfferWallSerializer
     lookup_field = "token"
-
-    @extend_schema()
-    @action(
-        methods=["get"], detail=False, url_path="by_url/(?P<url>.+)", url_name="by_url"
-    )
-    def by_url(self, _request, url):
-        instance = get_object_or_404(self.queryset, url=url)
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
 
     @extend_schema(
         responses=OpenApiResponse(

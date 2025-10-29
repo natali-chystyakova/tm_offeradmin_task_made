@@ -32,7 +32,7 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += [
-        # YOUR PATTERNS
+        # API Schema
         path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
         # Optional UI:
         path(
@@ -46,5 +46,6 @@ if settings.DEBUG:
             name="redoc",
         ),
     ]
-if settings.DEBUG:
+    # Serve static/media files in development
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
