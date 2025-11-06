@@ -16,6 +16,13 @@ services:
       - "8000:8000"
     restart: unless-stopped
 
+  litestar:
+    build: ./litestar_offers
+    container_name: litestar
+    expose:
+      - 8000
+    restart: unless-stopped
+
   nginx:
     build: ./nginx/conf
     container_name: nginx
@@ -30,4 +37,5 @@ services:
       - '80:80'
     depends_on:
       - admin_panel
+      - litestar
     restart: unless-stopped

@@ -33,6 +33,17 @@ services:
       - "8000:8000"
     restart: unless-stopped
 
+  litestar:
+    build: ./litestar_app
+    container_name: litestar
+    volumes:
+      - ./litestar_app:/app
+    ports:
+      - "8001:8000"
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
   nginx:
     build: ./nginx/conf
     container_name: nginx
@@ -46,4 +57,5 @@ services:
       - '80:80'
     depends_on:
       - admin_panel
+      - litestar
     restart: unless-stopped
